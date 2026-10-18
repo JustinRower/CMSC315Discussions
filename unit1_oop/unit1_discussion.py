@@ -24,8 +24,30 @@ from copy import copy, deepcopy
 #
 # Replace the pass statement with your implementation.
 
-class ParentClass:
-    pass
+"""
+I took a liberty to change the ParentClass and ChildClass names
+I chose 'Weapon' and 'Melee' because I've always wondered if
+inheritance and polymorphism was how RPGs handled all of the
+different weapon types.
+""" 
+
+
+class Weapon:
+    # Class variable
+    DEFAULT_ICON = "sword.png" # To imitate a placeholder inventory icon
+    
+    # Constructor
+    def __init__(self, name: str, lvl: int):
+        self.name = name
+        self.lvl = lvl
+        
+    # Display info
+    def display_info(self):
+        print(f"Name: {self.name}, Level: {self.lvl}")
+        
+    # Method for demonstrating inheritance
+    def demo_inheritance(self):
+        print("This method exists in the Weapon class")
 
 
 # TODO 2:
@@ -40,8 +62,23 @@ class ParentClass:
 #
 # Replace the pass statement with your implementation.
 
-class ChildClass(ParentClass):
-    pass
+class Melee(Weapon):
+    # Class variable
+    DEFAULT_RARITY = 'Common'
+    
+    # Constructor with added 'rarity' and 'dmg' fields
+    def __init__(self, name: str, lvl: int, rarity: str, dmg: int):
+        super().__init__(name, lvl)
+        self.rarity = rarity
+        self.dmg = dmg
+        
+    # Method that swings the melee weapon
+    def swing(self):
+        print(f"Whoosh! {self.name} does {self.dmg} to enemy!")
+        
+    # Override from parent class
+    def display_info(self):
+        print(f"Name: {self.name}, Damage: {self.dmg}, Rarity: {self.rarity}, Level Requirement: {self.lvl}")
 
 
 # TODO 3:
@@ -57,7 +94,41 @@ class ChildClass(ParentClass):
 
 def demonstrate_namespaces():
     print("\n=== Namespace Demonstration ===")
-    print("TODO: Implement namespace demonstration")
+    # Create two child objects
+    sword = Melee('Iron Sword', 2, 'Common', 15)
+    hammer = Melee('Adamant Warhammer', 25, 'Rare', 68)
+    
+    # Display DEFAULT_RARITY through class itself
+    print(f"Class variable from class: {Melee.DEFAULT_RARITY}")
+    # Display DEFAULT_RARITY through sword object
+    print(f"Class variable from object: {sword.DEFAULT_RARITY}")
+    
+    # Add new attribute to existing object
+    hammer.class_req = "Paladin"
+    print(hammer.class_req)
+    
+    # Display namespaces through __dict__
+    print(f"Sword namespace:\n{sword.__dict__}")
+    print(f"Hammer namespace:\n{hammer.__dict__}")
+    
+    # Display information about class namespace
+    print("Weapon class namespace")
+    for key, value in Weapon.__dict__.items():
+        # Skip over dunder attributes
+        if key.startswith('__'):
+            continue
+        # Determine if key is method or class variable
+        kind = 'method' if callable(value) else 'class variable'
+        print(f"{key} ({kind}): {value}")
+        
+    print("Melee class namespace")
+    for key, value in Melee.__dict__.items():
+        # Skip over dunder attributes
+        if key.startswith('__'):
+            continue
+        # Determine if key is method or class variable
+        kind = 'method' if callable(value) else 'class variable'
+        print(f"{key} ({kind}): {value}")
 
 
 # TODO 4:
@@ -73,8 +144,41 @@ def demonstrate_namespaces():
 
 def demonstrate_copying():
     print("\n=== Copy Demonstration ===")
-    print("TODO: Implement shallow copy and deep copy demonstration")
+    # I will use the same hammer Melee object to demonstrate the copying
+    hammer = Melee('Adamant Warhammer', 25, 'Rare', 68)
+    # Add nested mutable attribute
+    hammer.classes = ['Paladin', 'Warrior']
+    
+    # Make a shallow copy
+    hammer_shallow = copy(hammer)
+    # Deep copy
+    hammer_deep = deepcopy(hammer)
+    
+    # Modify the original nested data
+    hammer.classes.append('Holy Knight')
+    
+    # Display the different objects
+    # Since classes is an added attribute, I can only display that data
+    print(f"Original object classes list: {hammer.classes}")
+    print(f"Shallow copy classes list: {hammer_shallow.classes}")
+    print(f"Deep copy classes list: {hammer_deep.classes}")
 
+    """
+    The difference between a deep and shallow copy is how the original data is
+    stored in either copy. In a shallow copy, a new outer object is created
+    that copies references to every attribute. This means that providing a new
+    object to point an attribute to in a shallow copy will not change the original,
+    but updating an existing mutable object that both reference will change both.
+    For example, calling shallow.name = new_name points only the copy at a new
+    string object, but modifying a list that both obj and shallow reference will
+    change the list in both because a new list is not being created; calling
+    shallow.list = [new list] would separate the list reference from the original,
+    allowing for the modification of it without updating the original list. Deep
+    copies are more straight forward. An entirely new object is created, with copies
+    of all the attributes and nested objects from the original.
+    Because the deep copy shares no references with the original, data can be modified
+    safely without modifying the original.
+    """
 
 # TODO 5:
 # Complete the main function.
@@ -89,9 +193,23 @@ def demonstrate_copying():
 def main():
     print("=== Unit 1 OOP Assignment ===")
 
-    print("\nTODO: Create and test your parent object")
-
-    print("\nTODO: Create and test your child object")
+    # Parent class
+    weapon = Weapon('Sword', 10)
+    # Child class
+    melee = Melee('Hammer', 5, 'Common', 15)
+    
+    # Demonstrate inheritance
+    weapon.display_info() # Parent version of display_info()
+    melee.display_info() # Overridden version in subclass
+    melee.demo_inheritance() # Call inherited superclass method from subclass
+    melee.swing() # Call subclass exclusive method
+    # Show swing() does not exist in Weapon class
+    # Attribute error should be thrown
+    try:
+        weapon.swing()
+    except AttributeError as e:
+        print(f"Error: {e}")
+        
 
     demonstrate_namespaces()
     demonstrate_copying()
