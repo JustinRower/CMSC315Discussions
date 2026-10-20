@@ -81,6 +81,33 @@ class Melee(Weapon):
         print(f"Name: {self.name}, Damage: {self.dmg}, Rarity: {self.rarity}, Level Requirement: {self.lvl}")
 
 
+# Student-created extension:
+# A second child class of Weapon to show that multiple subclasses can
+# share the same parent while adding their own behavior.
+
+class Ranged(Weapon):
+    # Class variable
+    DEFAULT_AMMO_TYPE = 'Arrow'
+    
+    # Constructor with added 'dmg' and 'ammo' fields
+    def __init__(self, name: str, lvl: int, dmg: int, ammo: int):
+        super().__init__(name, lvl)
+        self.dmg = dmg
+        self.ammo = ammo
+        
+    # Method that fires the ranged weapon, using up one piece of ammo
+    def shoot(self):
+        if self.ammo <= 0:
+            print(f"{self.name} is out of {self.DEFAULT_AMMO_TYPE}s!")
+            return
+        self.ammo -= 1
+        print(f"Thwip! {self.name} does {self.dmg} to enemy! ({self.ammo} left)")
+        
+    # Override from parent class
+    def display_info(self):
+        print(f"Name: {self.name}, Damage: {self.dmg}, Ammo: {self.ammo} {self.DEFAULT_AMMO_TYPE}s, Level Requirement: {self.lvl}")
+
+
 # TODO 3:
 # Create a function that demonstrates class namespaces and instance namespaces.
 #
@@ -210,6 +237,14 @@ def main():
     except AttributeError as e:
         print(f"Error: {e}")
         
+    # Student extension: second subclass of Weapon
+    ranged = Ranged('Shortbow', 3, 12, 2)
+    ranged.display_info() # Overridden version in second subclass
+    ranged.demo_inheritance() # Same inherited method as Melee
+    # Shoot until out of ammo
+    ranged.shoot()
+    ranged.shoot()
+    ranged.shoot()
 
     demonstrate_namespaces()
     demonstrate_copying()
