@@ -2,28 +2,37 @@
 
 ## Overview
 
-This assignment explores two fundamental linear data structures:
+This will provide a brief overview of the functionality of the project.
+The implementation process and reflection will be posted to the LEO discussion post.
 
-- Stack (LIFO)
-- Queue (FIFO)
+Use the following to run the program:
+`python3 unit2_discussion.py`
 
-## Learning Objectives
+## Stack
 
-- Implement stack operations
-- Implement queue operations
-- Understand LIFO and FIFO behavior
-- Create edge cases
+The Stack class implements a simple stack data structure using a Python list.
 
-## Requirements
+Methods:
+ - Constructor: initializes the stack object with an empty list
+ - push(self, value): Adds value to the top of the stack
+ - pop(self): Removes top value from the stack, returns popped value. Raises ValueError if stack is empty
+ - peek(self): Returns top value from stack without removing it. Raises ValueError if stack is empty
+ - is_empty(self): Returns true if stack is empty, false otherwise
 
-Complete all TODO sections:
+## Queue
 
-1. Implement stack operations.
-2. Implement queue operations.
-3. Demonstrate LIFO behavior.
-4. Demonstrate FIFO behavior.
-5. Create and test edge cases.
-6. Create a real-world scenario.
+The Queue class uses deque from the collections library to make a Queue
+
+Methods:
+ - Constructor: intializes Queue with deque()
+ - enqueue(self, value): Adds value to the beginning of the Queue
+ - dequeue(self): Removes and returns first item in Queue. Raises ValueError if Queue is empty
+ - front(self): Returns first item in Queue without removing it. Raises ValueError if Queue is empty
+ - is_empty(self): Returns true if Queue is empty, false otherwise.
+
+## Main
+
+Main provides a demonstration of the above classes.
 
 ## Discussion Board Reflection
 
