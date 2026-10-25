@@ -2,8 +2,8 @@
 
 ## Overview
 
-This will provide a brief overview of the functionality of the project.
-The implementation process and reflection will be posted to the LEO discussion post.
+This has provided a brief overview of the functionality of the project.
+The implementation process and reflection has been posted to the LEO discussion post.
 
 Use the following to run the program:
 `python3 unit2_discussion.py`
