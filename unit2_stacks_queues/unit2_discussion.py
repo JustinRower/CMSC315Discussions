@@ -96,11 +96,16 @@ def main():
     print("LIFO behavior: last item (4) is popped first")
     print("Peeking at stack...")
     print(stack.peek())
-    print("Stack after peeking: ", stack.items)
+    print("Stack after peeking (unchanged, peek does not remove): ", stack.items)
     print("LIFO behavior: top value (3) is peeked at")
     print("Creating new empty stack")
     stack = Stack()
     print("Stack is empty: ", stack.is_empty())
+    print("Attempting to pop from empty stack")
+    try:
+        stack.pop()
+    except IndexError as e:
+        print("Expected IndexError: ", e)
     print("Attempting peek on empty stack")
     try:
         stack.peek()
@@ -113,21 +118,22 @@ def main():
     print("Popping value from stack")
     print(stack.pop())
     print("Verifying stack is empty: ", stack.is_empty())
-    
-# ===============================
-# TODO (Student): QUEUE DEMO
-# ===============================
-# Requirements:
-# 1. Create a Queue object.
-# 2. Add at least 4 values to the queue.
-# 3. Improve the print statements so they clearly explain what is happening.
-# 4. Demonstrate FIFO behavior.
-# 5. Show what happens when dequeue() is used on an empty queue.
-#
-# Edge Cases:
-# 6. Show what happens when front() is used on an empty queue.
-# 7. Create a queue with only one item, remove it,
-#    and verify the queue is empty afterward.
+
+    # ===============================
+    # TODO (Student): QUEUE DEMO
+    # ===============================
+    # Requirements:
+    # 1. Create a Queue object.
+    # 2. Add at least 4 values to the queue.
+    # 3. Improve the print statements so they clearly explain what is happening.
+    # 4. Demonstrate FIFO behavior.
+    # 5. Show what happens when dequeue() is used on an empty queue.
+    #
+    # Edge Cases:
+    # 6. Show what happens when front() is used on an empty queue.
+    # 7. Create a queue with only one item, remove it,
+    #    and verify the queue is empty afterward.
+
     print("\n=== QUEUE DEMO ===")
     print("Creating Queue object")
     queue = Queue()
@@ -144,12 +150,12 @@ def main():
     print("Viewing front of queue")
     print(queue.front())
     print("Attempting dequeue on empty queue")
+    queue = Queue()
     try:
         queue.dequeue()
     except IndexError as e:
         print("Expected IndexError: ", e)
     print("Testing front on empty queue")
-    queue = Queue()
     try:
         queue.front()
     except IndexError as e:
@@ -160,6 +166,7 @@ def main():
     print("Dequeuing value from queue")
     print(queue.dequeue())
     print("Verifying queue is empty: ", queue.is_empty())
+
 
 if __name__ == "__main__":
     main()
