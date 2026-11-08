@@ -21,6 +21,38 @@ This assignment introduces Binary Search Trees (BSTs) and recursive tree operati
 5. Demonstrate edge cases.
 6. Create a real-world BST example.
 
+## Project Overview
+
+All code is in `unit4_discussion.py`. Run it with `python unit4_discussion.py`.
+
+### `Node`
+
+A single tree node.
+
+- `__init__(value)`: stores the value and sets `left` and `right` to `None`.
+
+### `BST`
+
+A binary search tree that ignores duplicate values.
+
+- `__init__()`: creates an empty tree (`root = None`).
+- `insert(value)`: adds a value, creating the root if the tree is empty.
+- `_insert_recursive(node, value)`: goes left for smaller values and right for larger values, and creates a node at the first empty spot.
+- `search(value)`: returns `True` if the value is in the tree, otherwise `False`.
+- `_search_recursive(node, value)`: follows a single path down the tree, going left or right at each node.
+- `inorder()`: returns the tree's values as a list.
+- `_inorder_recursive(node, values)`: visits left subtree, node, then right subtree, which produces sorted order.
+
+### `main()`
+
+Demonstrates the `BST` class in these sections:
+
+- Tree construction
+- In-order traversal
+- Search tests
+- Edge cases (duplicate values, empty tree)
+- Real-world example (student ID lookup)
+
 ## Discussion Board Reflection
 
 After completing the programming assignment, add this reflection to your initial discussion post in LEO.
